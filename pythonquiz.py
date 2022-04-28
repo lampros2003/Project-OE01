@@ -17,23 +17,24 @@ class Player:
     players = {}
     @staticmethod
     def load_players():
-        ...
+        pass
     def __init__(self, name, update=True):
-        ...
+        pass
     def new_game(self, score, update=True):
-        ...
+        pass
     def update_players(self):
-
+        pass
     def __str__(self):
-
+        pass
 
 def load_quiz():
-    ...
+    pass
     ## load players
-    Player.load_players()
+    ##Player.load_players()
 
 def play_quiz():
-    ...
+    pass
 if __name__ == "__main__":
-    load_quiz()
-    play_quiz()
+    pass
+    #load_quiz()
+    #play_quiz()
