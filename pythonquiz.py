@@ -23,25 +23,36 @@ class Player:
     
     def set_password(self,password):
         self.password_hash = generate_password_hash(password)
+        print(check_password_hash(self.password_hash,password))
      
-    def check_password(self,password):
-        return check_password_hash(self.password_hash,password)
+    
     @staticmethod
     def load_players(self):
         pass
     def __init__(self, name, password,update=True):
+        self.name = name
+        self.password = password
         self.set_password(password)
         self.values = [name,self.password_hash,0]
+
+    def check_password(self):
+        passondb = dbmanage.fetchplayer(conn,self.values)[0][1]
+        print(passondb)
+        print(self.password)
+        return check_password_hash(passondb,self.password)
         
     def new_game(self, score, update=True):
         pass
     def update_players(self):
-        self.set_password(self.values[1])
+        #self.set_password(self.values[1])
         self.values[1] = self.password_hash
         print(self.values)
         dbmanage.manageplayer(conn,self.values )
     def __str__(self):
         pass
+def getplayer(username,password):
+    
+    return Player(username,password)
 
 def load_quiz():
     pass
@@ -54,10 +65,11 @@ if __name__ == "__main__":
     pass
     #load_quiz()
     #play_quiz()
-test = Player("kloe","!afefR34")
-test.update_players()
-print(test.password_hash)
-print(check_password_hash (dbmanage.fetchplayer(conn,test.values)[0][1],"!afefR34"))
+testplay = getplayer("palooza","1234")
+testplay.update_players()
+
+print(testplay.check_password())
+
 
 
 
