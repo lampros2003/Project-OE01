@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import dbcreds as creds
 import pandas.io.sql as psql
-
+import random
 def connecttodb():
     conn_string = "host="+ creds.PGHOST +" port="+ "5432" +" dbname="+ creds.PGDATABASE +" user=" + creds.PGUSER \
     +" password="+ creds.PGPASSWORD
@@ -65,6 +65,7 @@ def editplayer(conn,pvs):
     """.format(pvs[2],pvs[0],player_tries3 = updatevals[0][4],player_tries2 = updatevals[0][3],player_tries1 = updatevals[0][2])
     cursor.execute(command)
     conn.commit()
+
 def manageplayer(conn,pvs):
     
     vals = fetchplayer(conn,pvs)
@@ -74,4 +75,17 @@ def manageplayer(conn,pvs):
     else :
         insertplayer(conn,pvs)
         conn.commit()
+
+#explicit type declaration TO DO ---- DONE
+#add on rest of functions for ease of use and deubbuging TO DO 
+##function returns tuple including question id and question content
+def takequestion(conn:psycopg2.connection):
+    cursor = conn.cursor()
+    numofquestions = cursor("SELECT COUNT(id) from questions;")
+    cursor.execute("SELECT * FROM questions WHERE id = '{}'".format(random.randint(0,numofquestions)))
+    question = cursor.fetchall()[1]
+    return question   
+
+    
+
 

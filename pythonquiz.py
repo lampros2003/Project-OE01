@@ -25,6 +25,9 @@ class Quiz:
     def __str__(self):
         pass
 
+
+
+
 class Player:
     players = {}
     
@@ -62,7 +65,7 @@ class Player:
         dbmanage.insertplayer(conn,self.values )
         authorizedentry = True
         return authorizedentry
-    ##only to hapend after authorization
+    ##only to hapen after authorization
     def update_player_stats(self):
     
         dbmanage.editplayer(conn,self.values)
@@ -93,7 +96,7 @@ if __name__ == "__main__":
 
 
 #####################TEST#########TEST######################
-testplay = makeplayer("ellepatator","!@banana243")
+testplay = makeplayer("carmalo","!@balana243")
 print(testplay.update_players())
 authorizedentry= testplay.check_password()
 print(authorizedentry)
