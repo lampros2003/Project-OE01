@@ -1,3 +1,4 @@
+
 from multiprocessing.dummy import current_process
 from click import command
 import psycopg2
@@ -33,8 +34,9 @@ def create_tables(conn):
         """
     command2 = """
             CREATE TABLE questions (
-            question_id INT,
-            question_content CHAR NOT NULL
+            question_id  INT,
+            question_content VARCHAR(1000) NOT NULL,
+            answer INT
 
         )"""
     cursor.execute(command)
@@ -79,12 +81,44 @@ def manageplayer(conn,pvs):
 #explicit type declaration TO DO ---- DONE
 #add on rest of functions for ease of use and deubbuging TO DO 
 ##function returns tuple including question id and question content
-def takequestion(conn:psycopg2.connection):
+def takequestion(conn):#:psycopg2.connection):
     cursor = conn.cursor()
-    numofquestions = cursor("SELECT COUNT(id) from questions;")
-    cursor.execute("SELECT * FROM questions WHERE id = '{}'".format(random.randint(0,numofquestions)))
-    question = cursor.fetchall()[1]
-    return question   
+    cursor.execute("SELECT COUNT(question_id) from questions;")
+    numofquestions = cursor.fetchone()[0]
+    
+    cursor.execute("SELECT * FROM questions WHERE question_id = {}".format(random.randint(0,numofquestions)))
+    question = cursor.fetchall()[0]
+    return question 
+def addqtodbfromtxt(conn):
+    cursor = conn.cursor()
+    id = 100000
+    content = "initiation"
+    answer = 47
+    with open("questions.txt","r",encoding="utf-8")  as file:
+        for line in file:
+            print(content)
+            if not line.strip():
+                continue
+            if line.startswith("Q"):
+                id =line.strip()
+                id = id.translate({ord(i): None for i in 'Q.'})
+                sql = """INSERT INTO questions (question_id,question_content,answer) 
+                    VALUES({},'{}',{}) ;""".format(int(id)-1,content.replace("'","''"),answer)
+                cursor.execute(sql)
+                conn.commit()
+                content = ''
+                answer = 0
+            else:
+                content += line
+                if line.strip()[-3:] == "***":
+                    answer = int(line[0])
+
+create_tables(conn)
+addqtodbfromtxt(conn)
+print(takequestion(conn))
+
+
+  
 
     
 
