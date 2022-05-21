@@ -96,7 +96,7 @@ def addqtodbfromtxt(conn):
     answer = 47
     with open("questions.txt","r",encoding="utf-8")  as file:
         for line in file:
-            print(content)
+            
             if not line.strip():
                 continue
             if line.startswith("Q"):
@@ -112,10 +112,6 @@ def addqtodbfromtxt(conn):
                 content += line
                 if line.strip()[-3:] == "***":
                     answer = int(line[0])
-
-create_tables(conn)
-addqtodbfromtxt(conn)
-print(takequestion(conn))
 
 
   
