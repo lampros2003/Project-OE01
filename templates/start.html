@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Quiz Start</title>
+    <style>
+      body {
+        background-color: #919191;
+      }
+      h1 {
+        color: #ffde57;
+        font-family: verdana;
+        font-size: 67px;
+        text-align: center;
+        text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191,
+          1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191,
+          1px 6px 1px #919191, 1px 10px 6px rgba(16, 16, 16, 0.4);
+      }
+      h2 {
+        color: #4584b6;
+        font-family: verdana;
+        text-align: center;
+      }
+      .rectangle {
+        height: 470px;
+        width: 500px;
+        position: absolute;
+        top: 24%;
+        left: 38%;
+        background-color: #555;
+      }
+      .image1 {
+        position: absolute;
+        top: 5%;
+        left: 80%;
+      }
+      .button {
+        cursor: pointer;
+        background-color: #4584b6;
+        color: #ffde57;
+        margin: 0;
+        position: absolute;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        top: 87%;
+        left: 50%;
+        padding: 45px 100px;
+        font-size: 67px;
+        font-family: verdana;
+        border-radius: 100px;
+      }
+      .button1:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191,
+          1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191,
+          1px 6px 1px #919191, 1px 10px 6px rgba(16, 16, 16, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome Niko</h1>
+    <h2>In previous games...</h2>
+    <div class="rectangle"></div>
+    <a href="https://www.python.org/" target="_blank">
+      <img
+        class="image1"
+        src="/images/python-powered-h-140x182.png"
+        alt="powered by python"
+        width="200"
+        height="auto"
+      />
+    </a>
+    <button class="button button1" onclick="audio.play(); functionwait();">
+      Begin
+    </button>
+    <script type="text/javascript">
+      const audio = new Audio();
+      audio.src = "./14759_1460060033.mp3";
+      function functionwait() {
+        setTimeout(function () {
+          window.location.href = "https://www.google.com/";
+        }, 7000);
+      }
+    </script>
+  </body>
+</html>
