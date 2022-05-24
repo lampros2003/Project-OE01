@@ -81,12 +81,11 @@ def manageplayer(conn,pvs):
 #explicit type declaration TO DO ---- DONE
 #add on rest of functions for ease of use and deubbuging TO DO 
 ##function returns tuple including question id and question content
-def takequestion(conn):#:psycopg2.connection):
+def takequestion(conn,exclude=[]):#:psycopg2.connection):
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(question_id) from questions;")
     numofquestions = cursor.fetchone()[0]
-    
-    cursor.execute("SELECT * FROM questions WHERE question_id = {}".format(random.randint(0,numofquestions)))
+    cursor.execute("SELECT * FROM questions WHERE question_id = {}".format(random.choice([i for i in range(0,numofquestions) if i not in exclude])))
     question = cursor.fetchall()[0]
     return question 
 def addqtodbfromtxt(conn):
@@ -117,5 +116,4 @@ def addqtodbfromtxt(conn):
   
 
     
-
-
+print(takequestion(conn))
