@@ -26,10 +26,62 @@ class Quiz:
         self.tries = tries
         self.score = score
     def calculate_score(self, reply):
-        #score calculation
-        #exact formula for score calculation to be discussed
+        total_questions = 5
+class Quiz:
+    allQuiz = {}
+    def __init__(self, id, question, replies, correct):
+        pass
+    def calculate_score(self, reply):
+        dont_know=0
         if reply == self.answer:
-            self.score = self.score + 1
+       if self.answer == 5 and dont_know==0:
+             self.score=self.score+5
+       elif self.answer == 4 and dont_know==0:
+             self.score=self.score+4-1/4
+       else if self.answer==3 and dont_know==0:
+             self.score=self.score+3-2/4
+       else if self.answer==2 and dont_know==0:
+             self.score=self.score+2-3/4
+       else if self.answer==1 and dont_know==0:
+             self.score=self.score
+       else if self.answer==0 and dont_know==0:
+             self.score=self.score-5/4
+             
+       else if self.answer == 4 and dont_know==1:
+             self.score=self.score+4
+       else if self.answer==3 and dont_know==1:
+             self.score=self.score+3-1/4
+       else if self.answer==2 and dont_know==1:
+             self.score=self.score+2-2/4
+       else if self.answer==1 and dont_know==1:
+             self.score=self.score+1-3/4
+       else if self.answer==0 and dont_know==1:
+             self.score=self.score-1
+
+
+       else if self.answer==3 and dont_know==2:
+             self.score=self.score+3
+       else if self.answer==2 and dont_know==2:
+             self.score=self.score+2-1/4
+       else if self.answer==1 and dont_know==2:
+             self.score=self.score+1-2/4
+       else if self.answer==0 and dont_know==2:
+             self.score=self.score-3/4
+
+
+       else if self.answer==2 and dont_know==3:
+             self.score=self.score+2
+       else if self.answer==1 and dont_know==3:
+             self.score=self.score+1-1/4
+       else if self.answer==0 and dont_know==3:
+             self.score=self.score-2/4
+
+       else if self.answer==1 and dont_know==4:
+             self.score=self.score+1
+       else if self.answer==0 and dont_know==4:
+             self.score=self.score-1/4
+       else if self.answer==0 and dont_know==5:
+             self.score=self.score
             return True
         
     def __str__(self):
