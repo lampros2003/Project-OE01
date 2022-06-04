@@ -13,12 +13,7 @@ def connecttodb():
     +" password="+ creds.PGPASSWORD
     conn=psycopg2.connect(conn_string)
     return conn
-
-
 conn = connecttodb()
-
-
-
 def create_tables(conn):
     cursor =conn.cursor()
     command = """

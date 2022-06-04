@@ -1,3 +1,4 @@
+from cgi import test
 from enum import Flag
 import re
 import os
@@ -26,62 +27,10 @@ class Quiz:
         self.tries = tries
         self.score = score
     def calculate_score(self, reply):
-        total_questions = 5
-class Quiz:
-    allQuiz = {}
-    def __init__(self, id, question, replies, correct):
-        pass
-    def calculate_score(self, reply):
-        dont_know=0
+        #score calculation
+        #exact formula for score calculation to be discussed
         if reply == self.answer:
-       if self.answer == 5 and dont_know==0:
-             self.score=self.score+5
-       elif self.answer == 4 and dont_know==0:
-             self.score=self.score+4-1/4
-       else if self.answer==3 and dont_know==0:
-             self.score=self.score+3-2/4
-       else if self.answer==2 and dont_know==0:
-             self.score=self.score+2-3/4
-       else if self.answer==1 and dont_know==0:
-             self.score=self.score
-       else if self.answer==0 and dont_know==0:
-             self.score=self.score-5/4
-             
-       else if self.answer == 4 and dont_know==1:
-             self.score=self.score+4
-       else if self.answer==3 and dont_know==1:
-             self.score=self.score+3-1/4
-       else if self.answer==2 and dont_know==1:
-             self.score=self.score+2-2/4
-       else if self.answer==1 and dont_know==1:
-             self.score=self.score+1-3/4
-       else if self.answer==0 and dont_know==1:
-             self.score=self.score-1
-
-
-       else if self.answer==3 and dont_know==2:
-             self.score=self.score+3
-       else if self.answer==2 and dont_know==2:
-             self.score=self.score+2-1/4
-       else if self.answer==1 and dont_know==2:
-             self.score=self.score+1-2/4
-       else if self.answer==0 and dont_know==2:
-             self.score=self.score-3/4
-
-
-       else if self.answer==2 and dont_know==3:
-             self.score=self.score+2
-       else if self.answer==1 and dont_know==3:
-             self.score=self.score+1-1/4
-       else if self.answer==0 and dont_know==3:
-             self.score=self.score-2/4
-
-       else if self.answer==1 and dont_know==4:
-             self.score=self.score+1
-       else if self.answer==0 and dont_know==4:
-             self.score=self.score-1/4
-       else if self.answer==0 and dont_know==5:
-             self.score=self.score
+            self.score = self.score + 1
             return True
         
     def __str__(self):
@@ -109,11 +58,18 @@ class Player:
         self.set_password(password)
         self.values = [name,self.password_hash,0]
 
-    def check_password(self):
+    def check_password(name, password):
         #checks password on db
-        passondb = dbmanage.fetchplayer(conn,self.values)[0][1]
-        authorizedentry =  check_password_hash(passondb,self.password)
-        return authorizedentry
+        print(name,password)
+        print(dbmanage.fetchplayer(conn, [name,password]))
+        #no username
+        if not dbmanage.fetchplayer(conn, [name,password]):
+            return False
+        #username exists check password
+        passondb = dbmanage.fetchplayer(conn,[name,password])[0][1]
+
+        
+        return check_password_hash(passondb,password)
         
     def new_game(self, score, update=True):
         pass
@@ -129,10 +85,7 @@ class Player:
         return authorizedentry
     ##only to happen after authorization
     def update_player_stats(self):
-    
         dbmanage.editplayer(conn,self.values)
-
-
     def __str__(self):
         pass
     def receiveperformance(self,grade):
@@ -194,15 +147,15 @@ if __name__ == "__main__":
 
 
 #####################TEST#########TEST######################
-""" testplay = makeplayer("carmalo","!@balana243")
+""" testplay = makeplayer("test","test123")
 print(testplay.update_players())
-authorizedentry= testplay.check_password()
+authorizedentry= Player.check_password("test","test123")
 print(authorizedentry)
 testplay.receiveperformance(16)
 if authorizedentry:
     testplay.update_player_stats()
 
-print(dbmanage.fetchplayer(conn,testplay.values)) """
+print(dbmanage.fetchplayer(conn,testplay.values))  """
 
 
 
