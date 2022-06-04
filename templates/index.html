@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+     <meta name = "viewport" content="width = device-width , initial-scale = 1"> 
+     <meta charset="utf-8">
+     <style>
+
+
+
+body {
+    --color-primary: #e5e500
+    --color-error:rgb(168,25,250)
+
+    --color--success: #cc0;
+    --color-radius:4px;
+
+
+    margin: 5px;;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 18px;
+    background: var(--color-primary);
+    background-size: cover;
+
+}
+.container {
+    width: 100%;
+  padding: 12px 25px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid rgb(28, 14, 14);
+  box-sizing: border-box;
+
+}
+
+.form__button {
+    background-color: #2d0562;
+  color: rgb(231, 238, 22);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  
+}
+
+.form__button:hover {
+    opacity: 0.8;
+}
+
+.form__button:active {
+    transform:scale(0.98);
+}
+
+
+
+  
+  .container,
+  .form__input,
+  .form__button {
+   font:500 1rem , sans-serif;
+   padding: 16px; 
+  } 
+
+
+
+ .form__title{
+     margin-bottom:2rem;
+     text-align:center;
+ } 
+
+  .form__message{
+      text-align:center; 
+      margin-bottom: 1rem;
+  }
+
+
+.form__message--success{
+    color: var(--color-success);
+}
+
+.form__message--error{
+    color: var(--color--error);
+
+}
+.form__input-g{
+    margin-bottom:1rem;
+}
+
+.form__input{
+    display:block;
+    width:100%;
+    padding: 0.75rem;
+    background:#eeee;
+    transition: background 0.2s, border-color 0.2s;
+}
+.form--hidden {
+    display:none
+}
+
+.form__input:focus {
+    border-color: var(--color-primary);
+    background:#eeee;
+}
+.form__input--error {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+
+.form__text{
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+.form__link{
+    color: black;
+}
+
+.form__title {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+
+</style>
+ </head>
+ <body>
+    <h1> Καλωσήρθατε στο Python-Quiz</h1>
+    <div class="container">
+        <form class="form" id="login">
+            <h1 class="form__title">Login</h1>
+            <div class="form__message form__message--error"></div>
+            <div class="form__input-g">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" autofocus placeholder="Enter Username" name="uname" required>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-g">
+                <label for="psw"><b>Password</b></label>
+                <input type="password" autofocus placeholder="Enter Password" name="psw" required>
+                <div class="form__input-error-message"></div>
+            </div>
+            <button class="form__button" type="submit">Continue</button>
+            <button class="form__button" type="cancel">Cancel</button>
+           
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+            </p>
+        </form>
+        </div>
+
+
+        <form class="form form--hidden" id="createAccount">
+            <h1 class="form__title">Create Account</h1>
+            <div class="form__message form__message--error"></div>
+            <div class="form__input-g">
+                <input type="text" id="signupUsername" class="form__input"  placeholder="Username">
+                <div class="form__input-error-message"></div>
+            </div>
+           
+            <div class="form__input-g">
+                <label for="psw"><b>Password</b></label>
+                <input type="password" class = "form__input" placeholder="Enter Password" name="psw" required>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-g">
+                <input type="password" class="form__input"  placeholder="Confirm password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <button class="form__button" type="submit">Continue</button>
+            <button class="form__button" type="cancel">Cancel</button>
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkLogin">Already have an account? Sign in</a>
+            </p>
+        </form>
+        
+    </div>
+    <script src="C:\Users\vagdi\Desktop\Β ΕΞΑΜΗΝΟ\εισαγωγή στην επιστήμη του ημτυ\project/main.js"></script>
+</body>
+</html>

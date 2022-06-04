@@ -17,7 +17,7 @@ authorizedentry= False
 
 
 class Quiz:
-    allQuiz = {}
+    allQuiz = []
     def __init__(self, id, question, player, answer, tries,score = 0 ):
         self.qid = id
         self.question = question
@@ -147,6 +147,7 @@ def load_quiz(player):
     global quiz 
     q = dbmanage.takequestion(conn)
     quiz = Quiz(q[0],q[1],player,q[2],0)
+    quiz.allQuiz.append(q[0])
     return quiz
     ## load players
     #Player.load_players()
@@ -193,7 +194,7 @@ if __name__ == "__main__":
 
 
 #####################TEST#########TEST######################
-testplay = makeplayer("carmalo","!@balana243")
+""" testplay = makeplayer("carmalo","!@balana243")
 print(testplay.update_players())
 authorizedentry= testplay.check_password()
 print(authorizedentry)
@@ -201,7 +202,7 @@ testplay.receiveperformance(16)
 if authorizedentry:
     testplay.update_player_stats()
 
-print(dbmanage.fetchplayer(conn,testplay.values))
+print(dbmanage.fetchplayer(conn,testplay.values)) """
 
 
 

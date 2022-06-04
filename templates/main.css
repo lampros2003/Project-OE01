@@ -1,0 +1,118 @@
+ body {
+    --color-primary: #e5e500
+    --color-error:rgb(168,25,250)
+
+    --color--success:var(--color-primary)
+    --color-radius:4px;
+
+
+    margin:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 18px;
+    background: var(--color-primary);
+    background-size: cover;
+
+}
+.container {
+    width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid rgb(28, 14, 14);
+  box-sizing: border-box;
+
+}
+
+.form__button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: var(--border-radius);
+    width: 100px;
+    
+  
+}
+
+.form__button:hover {
+    opacity: 0.8;
+}
+
+.form__button:active {
+    transform:scale(0.98);
+}
+
+
+.form_button--cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #4f36f4;
+  }
+  
+  .container,
+  .form__input,
+  .form__button {
+   font:500 1rem , sans-serif; 
+  } 
+
+
+
+ .form__title{
+     margin-bottom:2rem;
+     text-align:center;
+ } 
+
+  .form__message{
+      text-align:center; 
+      margin-bottom: 1rem;
+  }
+
+
+.form__message--success{
+    color: var(--color-success);
+}
+
+.form__message--error{
+    color: var(--color--error);
+
+}
+.form__input-group{
+    margin-bottom:1rem;
+}
+
+.form__input{
+    display:block;
+    width:100%;
+    padding: 0.75rem;
+    background:#eeee;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+
+.form__input:focus {
+    border-color: var(--color-primary);
+    background:#eeee;
+}
+.form__input--error {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+
+.form__text,
+.form__link
+{
+    color:black
+    
+    
+
+}
+
+
+
+
+

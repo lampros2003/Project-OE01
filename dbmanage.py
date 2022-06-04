@@ -116,4 +116,3 @@ def addqtodbfromtxt(conn):
   
 
     
-print(takequestion(conn))
