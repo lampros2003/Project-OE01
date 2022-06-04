@@ -28,12 +28,10 @@ def login():
         return render_template("index.html")
     elif reply:
         #check if user exists
-        print("POST")
-        pprint(reply)
+        
         username = reply.split("&")[0].split("=")[1]
         password = reply.split("&")[1].split("=")[1]
         if Player.check_password(username, password):
-            print("login successful")
             session["username"] = username
             session["password"] = password
             session["score"] = 0

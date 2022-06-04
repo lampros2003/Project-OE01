@@ -124,20 +124,10 @@ def play_quiz(quiz,response):
         quiz.player.values[2] = quiz.score
         quiz.player.update_player_stats()
         return True#quiz over
-#will be used after request is imported
-def newresponse():
-    #new response will take input from the html page
-    if request.method == "POST":
-        response = request.form["response"]
-        return response
-    pass
 
 
-def recursivequiz(quiz,response):
-    #plays quiz until quiz is over
-    while(not play_quiz(quiz,response)):
-        #new response will take input from the html page
-        response = newresponse()
+
+
         
 if __name__ == "__main__":
     pass
