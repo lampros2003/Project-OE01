@@ -8,19 +8,23 @@ from flask import render_template, redirect, url_for
 import secrets
 #make secret key
 secret = secrets.token_urlsafe(32)
-
+#SOS LOGIN WRAPPER ONLY USE FUNCTIONS THROUGH THIS 
+#DO NOT USE AN UNWRAPPED FUNCTION ON FINAL BUILD
+def loginwrap(func):
+    def wrapper(*args, **kwargs):
+        if "logged_in" not in session or not session["logged_in"]:
+            return redirect(url_for("login"))
+        return func(*args, **kwargs)
+    return wrapper
 app = Flask(__name__)
 #use secret key
 app.config['SECRET_KEY'] = secret
 @app.route ("/")
 def root():
-    session['loggedin'] = False
     return redirect(url_for("login"))
 @app.route("/login", methods=["GET", "POST"])
 def login():
     #loginpage to go here
-    session['loggedin'] = False
-
     reply = request.query_string.decode()
 
     if not reply :
@@ -36,28 +40,36 @@ def login():
             session["password"] = password
             session["score"] = 0
             session["tries"] = 0
-            session["loggedin"] = True
+            session["logged_in"] = True
+            print('start')
             return redirect(url_for("start"))
         else:
             flash("Login unsuccessful")
             return render_template("index.html", message="Invalid username or password")
 
+def loggedstart(*args, **kwargs):
+    if request.query_string:
+        return url_for("question", id=1)
+    return render_template("start.html")
 @app.route("/start")
 def start():
-    if session["loggedin"]:
-        return render_template("start.html")
-    else:
-        return redirect(url_for("login"))
+    
+    return loginwrap(loggedstart)()
+   
 
 @app.route("/end")
 def end():
 
     pass
 
+def loggedquestion(*args, **kwargs):
+    
+    return render_template("question.html",id=args[0])
 @app.route('/q/<id>')
 def question(id):
-    return render_template('main_page.html', user_name=session["username"], replies=0, answer=score)
+    return loginwrap(loggedquestion(id))
     
-    pass
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
