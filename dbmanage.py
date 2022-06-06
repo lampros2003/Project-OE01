@@ -31,11 +31,14 @@ def create_tables(conn):
             CREATE TABLE questions (
             question_id  INT,
             question_content VARCHAR(1000) NOT NULL,
-            answer INT
-
+            question_answers VARCHAR(1000) NOT NULL,
+            answer INT NOT NULL
         )"""
     cursor.execute(command)
+    conn.commit()
+    
     cursor.execute(command2)
+    conn.commit()
     
 
     
@@ -80,14 +83,16 @@ def takequestion(conn,exclude=[]):#:psycopg2.connection):
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(question_id) from questions;")
     numofquestions = cursor.fetchone()[0]
+    print(numofquestions)
     cursor.execute("SELECT * FROM questions WHERE question_id = {}".format(random.choice([i for i in range(0,numofquestions) if i not in exclude])))
-    question = cursor.fetchall()[0]
+    question = cursor.fetchall()
     return question 
 def addqtodbfromtxt(conn):
     cursor = conn.cursor()
     id = 100000
     content = "initiation"
     answer = 47
+    answers =['1','2','3','4']
     with open("questions.txt","r",encoding="utf-8")  as file:
         for line in file:
             
@@ -96,18 +101,27 @@ def addqtodbfromtxt(conn):
             if line.startswith("Q"):
                 id =line.strip()
                 id = id.translate({ord(i): None for i in 'Q.'})
-                sql = """INSERT INTO questions (question_id,question_content,answer) 
-                    VALUES({},'{}',{}) ;""".format(int(id)-1,content.replace("'","''"),answer)
+                print(answers)
+                answtxt = "$".join([i.replace("'","''") for i in answers])
+                sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
+                    
+                    VALUES({},'{}','{}',{}) ;""".format(int(id)-1,content.replace("'","''"),answtxt,answer)
                 cursor.execute(sql)
                 conn.commit()
                 content = ''
                 answer = 0
+                answers = []
             else:
-                content += line
-                if line.strip()[-3:] == "***":
+                if line[-3:] == "***":
                     answer = int(line[0])
+                    answers.append(line[2:-1].lstrip())
+                if line[0].isdigit() and line[1]==".":
+                    answers.append(line[2:-1].lstrip())
+                   
+                
+                else:
+                    content += line
 
 
-  
 
-    
+print(takequestion(conn))

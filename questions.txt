@@ -150,7 +150,7 @@ if a==0 or 3:
 else:
     print (a+1)
 </pre>
-1. error
+1.  error
 2.	5
 3.	4 ***
 4.	7
