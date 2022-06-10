@@ -78,6 +78,46 @@ def loggedquestion(*args, **kwargs):
     return render_template("question.html",id=args[0])
 @app.route('/q/<id>')
 def question(id):
+    print("ROUTE /quiz", id)
+    # ανάκτησε από το session την κατάσταση...
+    name = session.get("username", None)
+    score = session.get("score", 0)
+    count = session.get("tries",0)
+    questions = session.get("questions", [])
+    if id == "end":
+        session["username"] = name
+        quiz.save_game(name, score)
+        return redirect(url_for("end")) ##### ( 5 ) #####
+
+    q = quiz.show_question(id)
+    print(name, questions, score, q)
+
+    if request.query_string: # ο χρήστης απάντησε
+        reply = request.args.get("answer")
+        new_score = quiz.question_score(id, reply)
+        score += new_score
+        print('score is...', new_score)
+        if new_score == 1: feedback = "Σωστή απάντηση"
+        else: feedback = "Προσοχή! Η σωστή απάντηση είναι η {}".format(q["correct"])
+        if questions: 
+            next_question = questions.pop()
+        else: next_question = "end"
+        session["user_name"] = name
+        session["score"] = score
+        session["questions"] = questions
+        ## να δώσουμε ανάδραση για την απάντηση και σκορ
+        return render_template('question.html', question = q["question"], \
+            id = id, user_name=name, replies = q["replies"],
+            feedback = feedback, next_question = next_question, button="Επόμενη",
+            disabled = "disabled") ####### ( 4 ) ########
+
+    else: # πρέπει να στείλουμε στον χρήστη την ερώτηση
+        session["user_name"] = name
+        session["score"] = score
+        session["questions"] = questions
+        session["count"] = count + 1
+        return render_template('question.html', question = q["question"], \
+            id = id, user_name=name, replies = q["replies"], button="Υποβολή")
     return loginwrap(loggedquestion(id))
     
 
