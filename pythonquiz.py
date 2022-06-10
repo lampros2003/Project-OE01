@@ -125,7 +125,23 @@ def play_quiz(quiz,response):
         quiz.player.update_player_stats()
         return True#quiz over
 
+def save_game(name, score):
+    player = Player.players[name]
+    if (name in Player.players) 
+    else Player(name, update=False)
+    player.new_game( 100*score/total_questions )
 
+def question_score(id, reply):
+    q = Quiz.allQuiz[id]
+    return q.calculate_score(reply)
+
+def show_question(id):
+    if id in Quiz.allQuiz.keys():
+        q = Quiz.allQuiz[id]
+        return {"id": q.id, \
+            "question": q.question, \
+            "replies": {**q.replies, **{len(q.replies)+1: "Δεν γνωρίζω"}}, \
+            "correct": q.correct}
 
 
         
