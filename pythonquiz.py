@@ -81,8 +81,7 @@ class Player:
             return False
         self.values[1] = self.password_hash
         dbmanage.insertplayer(conn,self.values )
-        authorizedentry = True
-        return authorizedentry
+        return True
     ##only to happen after authorization
     def update_player_stats(self):
         dbmanage.editplayer(conn,self.values)
@@ -125,11 +124,12 @@ def play_quiz(quiz,response):
         quiz.player.update_player_stats()
         return True#quiz over
 
-def save_game(name, score):
+""" def save_game(name, score):
+    return
     player = Player.players[name]
     if (name in Player.players) 
     else Player(name, update=False)
-    player.new_game( 100*score/total_questions )
+    player.new_game( 100*score/total_questions ) """
 
 def question_score(id, reply):
     q = Quiz.allQuiz[id]

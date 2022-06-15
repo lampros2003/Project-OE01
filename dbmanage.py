@@ -53,7 +53,7 @@ def insertplayer(conn,pvs):
     cursor =conn.cursor()
     """ insert a  player into the players table """
     sql = """INSERT INTO players (player_name,player_pass,player_tries1,player_tries2,player_tries3,player_tries4) 
-    VALUES('{}','{}',{},{},{},{}) ;""".format(pvs[0],pvs[1],pvs[2],0,0,0)
+    VALUES('{}','{}',{},{},{},{}) ;""".format(pvs[0],pvs[1],0,0,0,0)
     cursor.execute(sql)
     conn.commit()
 def editplayer(conn,pvs):
