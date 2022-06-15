@@ -1,7 +1,5 @@
-from pprint import pprint
-from traceback import print_tb
+
 from flask import Flask, flash
-from jinja2 import pass_eval_context
 from pythonquiz import Quiz, Player
 import dbmanage
 from flask import request, session
@@ -9,13 +7,12 @@ from flask import render_template, redirect, url_for
 import secrets
 #make secret key
 secret = secrets.token_urlsafe(32)
-conn =dbmanage.conn
 #SOS
 #SOS LOGIN WRAPPER ONLY USE FUNCTIONS THROUGH THIS 
 #DO NOT USE AN UNWRAPPED FUNCTION ON FINAL BUILD IT WILL BE UNSAFE
 #THANKS
 #SOS
-
+conn = dbmanage.conn
 def loginwrap(func):
     
     #wrapper function
@@ -36,13 +33,14 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = secret
 @app.route ("/")
 def root():
-    return redirect(url_for("q"))
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     #loginpage to go here
     reply = request.query_string.decode()
-    
+    if "counter" not in session:
+        session["counter"] = 0
     if not reply :
         return render_template("index.html")
     else:
@@ -59,8 +57,8 @@ def login():
             
             return redirect(url_for("start"))
         else:
-            flash("Login unsuccessful")
-            return render_template("index.html", message="Invalid username or password")
+            flash("Incorrect username or password")
+            return render_template("index.html")
 @app.route("/register")
 def register():
     reply = request.query_string.decode()
@@ -68,18 +66,16 @@ def register():
         return render_template("register.html")
     else:
         #check if user exists
+        
         username = reply.split("&")[0].split("=")[1]
         password = reply.split("&")[1].split("=")[1]
-        if Player.update_players(conn, [username,password]):
-            flash("Registration successful")
-            return redirect(url_for("start"))
-        else:
-            flash("Registration unsuccessful")
+        if  dbmanage.fetchplayer(conn, [username,password]):
+            flash("Username already exists")
             return render_template("register.html", message="Username already exists")
             
 
 
-
+    return render_template("register.html")
 def loggedstart():
     if request.query_string :
         return url_for("question", id=1)

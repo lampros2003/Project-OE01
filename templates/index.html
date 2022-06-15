@@ -128,7 +128,15 @@ body {
 </style>
  </head>
  <body>
+   
     <h1> Καλωσήρθατε στο Python-Quiz</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       {% for message in messages %}
+          {{ message }}
+       {% endfor %}
+    {% endif %}
+     {% endwith %}
     <div class="container">
         <form class="form" id="login">
             <h1 class="form__title">Login</h1>

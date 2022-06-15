@@ -123,5 +123,7 @@ def addqtodbfromtxt(conn):
                     content += line
 
 
-
-print(takequestion(conn))
+if __name__ == "__main__":
+    conn = connecttodb()
+    create_tables(conn)
+    print(takequestion(conn))
