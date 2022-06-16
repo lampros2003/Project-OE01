@@ -20,7 +20,6 @@ def loginwrap(func):
     #wrapper will check if user is logged in
     #if not, redirect to login page
     #if so, return function to be called
-
     
     def wrapper(*args, **kwargs):
         if "logged_in" not in session or not session["logged_in"]:
@@ -33,6 +32,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = secret
 @app.route ("/")
 def root():
+    return redirect(url_for("start"))
     return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
@@ -82,7 +82,7 @@ def loggedstart():
     return render_template("start.html")
 @app.route("/start")
 def start():
-
+    return render_template("start.html")
     return loginwrap(loggedstart)()
    
 
