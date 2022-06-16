@@ -128,11 +128,12 @@ def question(id):
     questions = session.get("questions", [])
     if id == "end":
         session["username"] = name
-        Player.update_player_stats(name, score)
+
+        #Player.update_player_stats(name, score)
         return redirect(url_for("end")) ##### ( 5 ) #####
 
     
-    print(name, questions, score, q)
+    
     q = Quiz.show_question(id)
     if request.query_string: # ο χρήστης απάντησε
         reply = request.args.get("answer")
@@ -148,8 +149,9 @@ def question(id):
         session["score"] = score
         session["questions"] = questions
         ## να δώσουμε ανάδραση για την απάντηση και σκορ
-        return render_template('question.html', question = q["question"], \
-            id = id, user_name=name, replies = q["replies"],
+        print(q["answer"])
+        return render_template('main_page.html', question = q["question"], \
+            id = id, user_name=name, replies = q["answer"],
             feedback = feedback, next_question = next_question, button="Επόμενη",
             disabled = "disabled") ####### ( 4 ) ########
 
@@ -158,8 +160,9 @@ def question(id):
         session["score"] = score
         session["questions"] = questions
         session["count"] = count + 1
-        return render_template('question.html', question = q["question"], \
-            id = id, user_name=name, replies = q["replies"], button="Υποβολή")
+        print(q["answer"])
+        return render_template('main_page.html', question = q["question"], \
+            id = id, user_name=name, replies = q["answer"], button="Υποβολή")
     return loginwrap(loggedquestion(id))
     
 

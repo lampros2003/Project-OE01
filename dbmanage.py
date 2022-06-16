@@ -59,6 +59,7 @@ def insertplayer(conn,pvs):
 def editplayer(conn,pvs):
     cursor =conn.cursor()
     updatevals = fetchplayer(conn,pvs)
+    print(updatevals)
     command = """UPDATE players
     SET player_tries4 = {player_tries3},player_tries3={player_tries2},player_tries2={player_tries1},player_tries1={}
     WHERE player_name = '{}';

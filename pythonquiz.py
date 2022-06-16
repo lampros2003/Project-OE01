@@ -29,7 +29,7 @@ class Quiz:
     def calculate_score(id, reply):
         #score calculation
         #exact formula for score calculation to be discussed
-        if reply == dbmanage.takequestion(id)[3]:
+        if reply == dbmanage.takequestion(conn,id)[0][3]:
             
             return 1
         else:
@@ -48,7 +48,7 @@ class Quiz:
     def show_question(id):
         #returns the question
         q = dbmanage.takequestion(conn,id)[0]
-        qout = {"id":q[0], "question":q[1],"answer":[i for i in q[2].split("$$$")],"correct":q[3]}
+        qout = {"id":q[0], "question":q[1],"answer":[i for i in q[2].split("$")],"correct":q[3]}
         return qout
 
 
