@@ -32,7 +32,17 @@ class Quiz:
         if reply == self.answer:
             self.score = self.score + 1
             return True
-        
+    def draw_questions(self):
+        #draw questions from database
+        #returns a list of questions
+        num = dbmanage.numqs(conn)
+        questions = []
+        for i in range(total_questions):
+            qid = random.randint(1,num)
+            question = dbmanage.takequestion(conn, qid)
+
+
+
     def __str__(self):
         pass
 
@@ -43,9 +53,10 @@ class Player:
     players = {}
     
     
-    def set_password(self,password):
+    def set_password(password):
         # password for player object
-        self.password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password)
+        return password_hash
         #print(check_password_hash(self.password_hash,password))
 
 
@@ -74,13 +85,13 @@ class Player:
     def new_game(self, score, update=True):
         pass
     #updates the database with current inputed player if conditions met
-    def update_players(self):
+    def update_players(self,values):
         #hashes the password for safe store on db
-        if dbmanage.fetchplayer(conn,self.values):
+        if dbmanage.fetchplayer(conn,values):
             #user already exists block signup
             return False
-        self.values[1] = self.password_hash
-        dbmanage.insertplayer(conn,self.values )
+        values[1] = Player.set_password(values[1])
+        dbmanage.insertplayer(conn,values )
         return True
     ##only to happen after authorization
     def update_player_stats(self):

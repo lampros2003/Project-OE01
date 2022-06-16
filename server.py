@@ -32,7 +32,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = secret
 @app.route ("/")
 def root():
-    return redirect(url_for("start"))
     return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
@@ -49,6 +48,7 @@ def login():
         username = reply.split("&")[0].split("=")[1]
         password = reply.split("&")[1].split("=")[1]
         if Player.check_password(username, password):
+            print("ooo")
             session["username"] = username
             session["password"] = password
             session["score"] = 0
@@ -57,6 +57,7 @@ def login():
             
             return redirect(url_for("start"))
         else:
+            print(username,password)
             flash("Incorrect username or password")
             return render_template("index.html")
 @app.route("/register")
@@ -69,17 +70,35 @@ def register():
         
         username = reply.split("&")[0].split("=")[1]
         password = reply.split("&")[1].split("=")[1]
-        if  dbmanage.fetchplayer(conn, [username,password]):
+        if  Player.update_players(conn, [username,password]):
+            print(username,password)
             flash("Username already exists")
+            session["username"] = username
+            session["password"] = password
+            session["score"] = 0
+            session["tries"] = 0
+            session["logged_in"] = True
+            return redirect(url_for("start"))
+           
+        else:
+            flash("User already exists")
+           
             return render_template("register.html", message="Username already exists")
-            
 
 
     return render_template("register.html")
 def loggedstart():
-    if request.query_string :
-        return url_for("question", id=1)
-    return render_template("start.html")
+    name = session["username"]
+    if request.query_string:
+        questions = quiz.draw_questions()
+        new_question = questions.pop()
+        session["questions"] = questions
+        session["score"] = 0
+        session["count"] = 0
+        return redirect(url_for("question", id = new_question))
+    else:
+        return render_template("start.html",name=name, history=dbmanage.fetchplayer(name))
+            
 @app.route("/start")
 def start():
     return render_template("start.html")
