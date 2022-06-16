@@ -39,8 +39,9 @@ class Quiz:
         questions = []
         for i in range(total_questions):
             qid = random.randint(1,num)
-            question = dbmanage.takequestion(conn, qid)
+            questions += [qid]
 
+        return questions
 
 
     def __str__(self):
