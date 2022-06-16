@@ -89,6 +89,13 @@ def register():
     return render_template("register.html")
 def loggedstart():
     name = session["username"]
+    print(name,0)
+    history=dbmanage.fetchplayer(conn,[name])[0]
+    print(history,"wwww")
+    try1=history[2]
+    try2=history[3]
+    try3=history[4]
+    try4=history[5]
     if request.query_string:
         questions = Quiz.draw_questions()
         new_question = questions.pop()
@@ -97,11 +104,10 @@ def loggedstart():
         session["count"] = 0
         return redirect(url_for("question", id = new_question))
     else:
-        return render_template("start.html",name=name, history=dbmanage.fetchplayer(name))
+        return render_template("start.html",name=name,try1=try1,try2=try2,try3=try3,try4=try4)
             
 @app.route("/start")
 def start():
-    return render_template("start.html")
     return loginwrap(loggedstart)()
    
 

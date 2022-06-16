@@ -23,13 +23,14 @@
         font-family: verdana;
         text-align: center;
       }
-      .rectangle {
-        height: 470px;
-        width: 500px;
+      .history {
+        height: 400px;
+        width: 350px;
         position: absolute;
-        top: 24%;
+        top: 30%;
         left: 38%;
-        background-color: #555;
+        font-size: 20px;
+        background-color: #ffffff;
       }
       .image1 {
         position: absolute;
@@ -61,9 +62,14 @@
     </style>
   </head>
   <body>
-    <h1>Welcome {name}</h1>
+    <h1>Welcome {{name}}</h1>
     <h2>In previous games...</h2>
-    <div class="rectangle">{history}</div>
+    <div class="history">
+      most recent try{{try1}} <br>
+      2nd most recent try{{try2}} <br>
+      3rd most recent try{{try3}} <br>
+      4th most recent try{{try4}} 
+    </div>
     <a href="https://www.python.org/" target="_blank">
       <img
         class="image1"
