@@ -98,16 +98,14 @@ def addqtodbfromtxt(conn):
     answers =['1','2','3','4']
     with open("questions.txt","r",encoding="utf-8")  as file:
         for line in file:
-            
             if not line.strip():
                 continue
             if line.startswith("Q"):
                 id =line.strip()
                 id = id.translate({ord(i): None for i in 'Q.'})
                 print(answers)
-                answtxt = "$".join([i.replace("'","''") for i in answers])
+                answtxt = "$$$".join([(i.replace("'","''")).replace("***","") for i in answers])
                 sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
-                    
                     VALUES({},'{}','{}',{}) ;""".format(int(id)-1,content.replace("'","''"),answtxt,answer)
                 cursor.execute(sql)
                 conn.commit()
@@ -127,6 +125,6 @@ def addqtodbfromtxt(conn):
 
 
 if __name__ == "__main__":
-    conn = connecttodb()
-    create_tables(conn)
-    print(takequestion(conn))
+
+    q = takequestion(conn,12)
+    print(q)

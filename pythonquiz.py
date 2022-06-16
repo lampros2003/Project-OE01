@@ -26,13 +26,15 @@ class Quiz:
         self.answer = answer
         self.tries = tries
         self.score = score
-    def calculate_score(self, reply):
+    def calculate_score(id, reply):
         #score calculation
         #exact formula for score calculation to be discussed
-        if reply == self.answer:
-            self.score = self.score + 1
-            return True
-    def draw_questions(self):
+        if reply == dbmanage.takequestion(id)[3]:
+            
+            return 1
+        else:
+            return 0
+    def draw_questions():
         #draw questions from database
         #returns a list of questions
         num = dbmanage.numqs(conn)
@@ -42,6 +44,12 @@ class Quiz:
             questions += [qid]
 
         return questions
+
+    def show_question(id):
+        #returns the question
+        q = dbmanage.takequestion(conn,id)[0]
+        qout = {"id":q[0], "question":q[1],"answer":[i for i in q[2].split("$$$")],"correct":q[3]}
+        return qout
 
 
     def __str__(self):
@@ -95,8 +103,8 @@ class Player:
         dbmanage.insertplayer(conn,values )
         return True
     ##only to happen after authorization
-    def update_player_stats(self):
-        dbmanage.editplayer(conn,self.values)
+    def update_player_stats(name, score):
+        dbmanage.editplayer(conn, [name,score])
     def __str__(self):
         pass
     def receiveperformance(self,grade):
@@ -147,14 +155,6 @@ def question_score(id, reply):
     q = Quiz.allQuiz[id]
     return q.calculate_score(reply)
 
-def show_question(id):
-    if id in Quiz.allQuiz.keys():
-        q = Quiz.allQuiz[id]
-        return {"id": q.id, \
-            "question": q.question, \
-            "replies": {**q.replies, **{len(q.replies)+1: "Δεν γνωρίζω"}}, \
-            "correct": q.correct}
-
 
         
 if __name__ == "__main__":
@@ -174,6 +174,11 @@ if authorizedentry:
     testplay.update_player_stats()
 
 print(dbmanage.fetchplayer(conn,testplay.values))  """
+q = Quiz.draw_questions()
+print(q)
+print(dbmanage.fetchplayer(conn,["potato"]))
+
+
 
 
 

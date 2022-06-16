@@ -90,7 +90,7 @@ def register():
 def loggedstart():
     name = session["username"]
     if request.query_string:
-        questions = quiz.draw_questions()
+        questions = Quiz.draw_questions()
         new_question = questions.pop()
         session["questions"] = questions
         session["score"] = 0
@@ -122,15 +122,15 @@ def question(id):
     questions = session.get("questions", [])
     if id == "end":
         session["username"] = name
-        quiz.save_game(name, score)
+        Player.update_player_stats(name, score)
         return redirect(url_for("end")) ##### ( 5 ) #####
 
-    q = quiz.show_question(id)
+    
     print(name, questions, score, q)
-
+    q = Quiz.show_question(id)
     if request.query_string: # ο χρήστης απάντησε
         reply = request.args.get("answer")
-        new_score = quiz.question_score(id, reply)
+        new_score = Quiz.calculate_score(id,reply)
         score += new_score
         print('score is...', new_score)
         if new_score == 1: feedback = "Σωστή απάντηση"
