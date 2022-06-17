@@ -126,6 +126,15 @@ def addqtodbfromtxt(conn):
                     content += line
 
 
+def addrule(conn):
+    cursor = conn.cursor()
+    rules =""""""
+    sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
+                    VALUES({},'{}','{}',{}) ;""".format(440,rules,"ok",1)
+   
+    cursor.execute(sql)
+    conn.commit()
+
 if __name__ == "__main__":
 
    

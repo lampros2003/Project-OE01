@@ -97,13 +97,13 @@ def loggedstart():
     try3=history[4]
     try4=history[5]
     questions = Quiz.draw_questions()
-    print(questions)
-    new_question = questions.pop()
+    
     session["questions"] = questions
-    session["score"] = 0
+    session["score"] = -1
     session["count"] = 0
     if request.query_string:
-        
+        new_question = questions.pop()
+        session["score"] = 0
         return redirect(url_for("question", id = new_question))
     else:
         return render_template("start.html",name=name,try1=try1,try2=try2,try3=try3,try4=try4)
@@ -121,7 +121,7 @@ def end():
     try2=history[3]
     try3=history[4]
     try4=history[5]
-    score=3 #εδω πρεπει να μπει η συναρτηση που θα υπολογιζει και θα επιστρεφει το σκορ
+    score = session.get("score", 0) #εδω πρεπει να μπει η συναρτηση που θα υπολογιζει και θα επιστρεφει το σκορ
     return render_template("end.html",score=score, name=name,try1=try1,try2=try2,try3=try3,try4=try4)
 
 def loggedquestion(*args, **kwargs):
@@ -142,7 +142,7 @@ def question(id):
         score = session.get("score", 0)
         print(Player.update_player_stats(name, score))
         
-        return redirect(url_for("start")) ##### ( 5 ) #####
+        return redirect(url_for("end")) ##### ( 5 ) #####
 
     
     
