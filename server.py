@@ -159,8 +159,8 @@ def question(id):
         print(new_score)
         score += new_score
         session["score"] = score
-        if new_score == 1: feedback = "Σωστή απάντηση"
-        else: feedback = "Προσοχή! Η σωστή απάντηση είναι η {}".format(q["correct"])
+        if new_score == 1: feedback = "Correct!"
+        else: feedback = "Incorrect.The correct answer is number  {}".format(q["correct"])
         
         if questions: 
             next_question = questions.pop()
@@ -171,7 +171,7 @@ def question(id):
         ## να δώσουμε ανάδραση για την απάντηση και σκορ
         return render_template('main_page.html', question = q["question"], \
             id = id, user_name=name, replies = q["answer"],len=len(q["answer"]),
-            feedback = feedback, next_question = next_question, button="Επόμενη",
+            feedback = feedback, next_question = next_question, button="Next",
             disabled = "disabled") ####### ( 4 ) ########
 
     else: # πρέπει να στείλουμε στον χρήστη την ερώτηση
@@ -181,7 +181,7 @@ def question(id):
         session["count"] = count + 1
         print(q["answer"])
         return render_template('main_page.html', question = q["question"], \
-            id = id, user_name=name, replies = q["answer"],len=len(q["answer"]), button="Υποβολή")
+            id = id, user_name=name, replies = q["answer"],len=len(q["answer"]), button="Submit")
     return loginwrap(loggedquestion(id))
     
 

@@ -56,8 +56,8 @@
 
 </head>
 <body>
-  <h1>Python-Quiz - Χρήστης: {{ user_name }}</h1>
-  <h2>Ερώτηση {{ id }} </h2>
+  <h1>Python-Quiz - User: {{ user_name }}</h1>
+  <h2>Question {{ id }} </h2>
   {% if disabled %}
   <form action=/q/{{next_question}}>
   {% else %}
@@ -66,7 +66,7 @@
       <div id="quiz">
       {{ question | safe }}
       </div>
-      Απάντηση (επιλέξτε):
+      Answer (choose one):
       <ol>
       {% for i in range(len) %}  
           <li><input type="radio" name="answer" required value={{i}} {{disabled}}> {{replies[i]}}</li>

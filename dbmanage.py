@@ -93,10 +93,16 @@ def takequestion(conn,id):#:psycopg2.connection):
     return question 
 def addqtodbfromtxt(conn):
     cursor = conn.cursor()
-    id = 100000
-    content = "initiation"
-    answer = 47
-    answers =['1','2','3','4']
+    id = 0
+    content ="""Before you start the quiz:
+    \n1)You will have to select one of the possible answers.
+    \n2)There is always a correct answer.
+    \n3)There is no penalty if your answer is wrong.
+    \n4)You can see how you did in the end screen.
+    \n5)Begin the test whenever you feel ready.
+    """
+    answer = 1
+    answers =['Begin']
     with open("questions.txt","r",encoding="utf-8")  as file:
         for line in file:
             if not line.strip():
@@ -118,7 +124,7 @@ def addqtodbfromtxt(conn):
                     answer = int(line.split()[0].strip("."))
                     line = line.strip().rstrip("***")
                     answers.append(line[2:-1])
-                if line[0].isdigit() and line[1]==".":
+                elif line[0].isdigit() and line[1]==".":
                     answers.append(line[2:-1].lstrip())
                    
                 
@@ -129,20 +135,19 @@ def addqtodbfromtxt(conn):
 def addrule(conn):
     cursor = conn.cursor()
     rules ="""Before you start the quiz:
-    1)You will have to select one of the possible answers.
-    2)There is always a correct answer.
-    3)There is no penalty if your answer is wrong.
-    4)You can see how you did in the end screen.
-    5)Begin the test whenever you feel ready.
+    \n1)You will have to select one of the possible answers.
+    \n2)There is always a correct answer.
+    \n3)There is no penalty if your answer is wrong.
+    \n4)You can see how you did in the end screen.
+    \n5)Begin the test whenever you feel ready.
     """
     sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
-                    VALUES({},'{}','{}',{}) ;""".format(440,rules,"ok",1)
+                    VALUES({},'{}','{}',{}) ;""".format(0,rules,"Begin",1)
    
     cursor.execute(sql)
     conn.commit()
 
 if __name__ == "__main__":
-
-   
-   q = takequestion(conn,12)
-   print(q)
+    create_tables(conn)
+    addqtodbfromtxt(conn)
+    
