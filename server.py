@@ -124,10 +124,7 @@ def end():
     score = session.get("score", 0) #εδω πρεπει να μπει η συναρτηση που θα υπολογιζει και θα επιστρεφει το σκορ
     return render_template("end.html",score=score, name=name,try1=try1,try2=try2,try3=try3,try4=try4)
 
-def loggedquestion(*args, **kwargs):
-    return render_template("question.html",id=args[0])
-@app.route('/q/<id>')
-def question(id):
+def loggedquestion(id):
     print("ROUTE /quiz", id)
     # ανάκτησε από το session την κατάσταση...
     name = session.get("username", None)
@@ -182,7 +179,11 @@ def question(id):
         print(q["answer"])
         return render_template('main_page.html', question = q["question"], \
             id = id, user_name=name, replies = q["answer"],len=len(q["answer"]), button="Submit")
-    return loginwrap(loggedquestion(id))
+@app.route('/q/<id>')
+def question(id):
+    
+     
+    return loginwrap(loggedquestion)(id)
     
 
     
