@@ -63,7 +63,7 @@ def editplayer(conn,pvs):
     command = """UPDATE players
     SET player_tries4 = {player_tries3},player_tries3={player_tries2},player_tries2={player_tries1},player_tries1={}
     WHERE player_name = '{}';
-    """.format(pvs[2],pvs[0],player_tries3 = updatevals[0][4],player_tries2 = updatevals[0][3],player_tries1 = updatevals[0][2])
+    """.format(pvs[1],pvs[0],player_tries3 = updatevals[0][4],player_tries2 = updatevals[0][3],player_tries1 = updatevals[0][2])
     cursor.execute(command)
     conn.commit()
 
@@ -105,7 +105,7 @@ def addqtodbfromtxt(conn):
                 id =line.strip()
                 id = id.translate({ord(i): None for i in 'Q.'})
                 print(answers)
-                answtxt = "$$$".join([(i.replace("'","''")).replace("***","") for i in answers])
+                answtxt = "$".join([(i.replace("'","''")).replace("***","") for i in answers])
                 sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
                     VALUES({},'{}','{}',{}) ;""".format(int(id)-1,content.replace("'","''"),answtxt,answer)
                 cursor.execute(sql)
@@ -114,9 +114,10 @@ def addqtodbfromtxt(conn):
                 answer = 0
                 answers = []
             else:
-                if line[-3:] == "***":
-                    answer = int(line[0])
-                    answers.append(line[2:-1].lstrip())
+                if line.strip().endswith("***"):
+                    answer = int(line.split()[0].strip("."))
+                    line = line.strip().rstrip("***")
+                    answers.append(line[2:-1])
                 if line[0].isdigit() and line[1]==".":
                     answers.append(line[2:-1].lstrip())
                    
@@ -127,5 +128,6 @@ def addqtodbfromtxt(conn):
 
 if __name__ == "__main__":
 
-    q = takequestion(conn,12)
-    print(q)
+   
+   q = takequestion(conn,1)
+   print(q)

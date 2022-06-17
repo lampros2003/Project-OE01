@@ -158,7 +158,8 @@ def question_score(id, reply):
 
         
 if __name__ == "__main__":
-    pass
+    q= Quiz.draw_questions()
+    print(q)
     #load_quiz()
     #play_quiz()
 
