@@ -158,7 +158,8 @@ def question_score(id, reply):
 
         
 if __name__ == "__main__":
-    pass
+    q= Quiz.draw_questions()
+    print(q)
     #load_quiz()
     #play_quiz()
 
@@ -174,9 +175,6 @@ if authorizedentry:
     testplay.update_player_stats()
 
 print(dbmanage.fetchplayer(conn,testplay.values))  """
-q = Quiz.draw_questions()
-print(q)
-print(dbmanage.fetchplayer(conn,["potato"]))
 
 
 

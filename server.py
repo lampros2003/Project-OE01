@@ -97,11 +97,13 @@ def loggedstart():
     try3=history[4]
     try4=history[5]
     questions = Quiz.draw_questions()
+    print(questions)
     new_question = questions.pop()
     session["questions"] = questions
     session["score"] = 0
     session["count"] = 0
     if request.query_string:
+        
         return redirect(url_for("question", id = new_question))
     else:
         return render_template("start.html",name=name,try1=try1,try2=try2,try3=try3,try4=try4)
@@ -126,10 +128,13 @@ def question(id):
     score = session.get("score", 0)
     count = session.get("tries",0)
     questions = session.get("questions", [])
+    print(":::::::::::::::::questions",questions)
+    Player.update_player_stats(name,score+1)
+    print(dbmanage.fetchplayer(conn,[name])[0])
+
     if id == "end":
         session["username"] = name
-
-        #Player.update_player_stats(name, score)
+        Player.update_player_stats(name, score)
         return redirect(url_for("end")) ##### ( 5 ) #####
 
     
@@ -139,9 +144,13 @@ def question(id):
         reply = request.args.get("answer")
         new_score = Quiz.calculate_score(id,reply)
         score += new_score
-        print('score is...', new_score)
+        name = session.get("username", None)
+        score = session.get("score", 0)
+        count = session.get("tries",0)
+        questions = session.get("questions", [])
         if new_score == 1: feedback = "Σωστή απάντηση"
         else: feedback = "Προσοχή! Η σωστή απάντηση είναι η {}".format(q["correct"])
+        
         if questions: 
             next_question = questions.pop()
         else: next_question = "end"
@@ -149,7 +158,6 @@ def question(id):
         session["score"] = score
         session["questions"] = questions
         ## να δώσουμε ανάδραση για την απάντηση και σκορ
-        print(q["answer"])
         return render_template('main_page.html', question = q["question"], \
             id = id, user_name=name, replies = q["answer"],len=len(q["answer"]),
             feedback = feedback, next_question = next_question, button="Επόμενη",

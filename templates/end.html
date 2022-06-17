@@ -7,7 +7,7 @@
     <title>Python Quiz End</title>
     <style>
       body {
-        background-color: #919191;
+        background-color: #bbbbbb;
       }
       h1 {
         color: #ffde57;
@@ -23,13 +23,15 @@
         font-family: verdana;
         text-align: center;
       }
-      .rectangle {
-        height: 470px;
-        width: 500px;
+      .history {
+        height: 400px;
+        width: 350px;
         position: absolute;
         top: 30%;
-        left: 38%;
-        background-color: #555;
+        left: 40%;
+        font-size: 24px;
+        color: #ffde57;
+        background-color: #4584b6;
       }
       .image1 {
         position: absolute;
@@ -86,20 +88,25 @@
     </style>
   </head>
   <body>
-    <h1>Player: Niko</h1>
-    <h2>You scored : 9/10! Congratulations</h2>
+    <h1>Player: {{name}}</h1>
+    <h2>You scored : {{score}}/5 Congratulations!</h2>
     <h2>In previous games...</h2>
-    <div class="rectangle"></div>
+    <div class="history">
+      most recent try{{try1}}/5 <br /><br /><br /><br />
+      2nd most recent try{{try2}}/5 <br /><br /><br /><br />
+      3rd most recent try{{try3}}/5 <br /><br /><br /><br />
+      4th most recent try{{try4}}/5
+    </div>
     <a href="https://www.python.org/" target="_blank">
       <img
         class="image1"
-        src="/images/python-powered-h-140x182.png"
+        src="https://raw.githubusercontent.com/lampros2003/Project-OE01/main/templates/images/python-powered-h-140x182.png"
         alt="powered by python"
         width="200"
         height="auto"
       />
     </a>
-    <form action="/start.html">
+    <form action="/start">
       <input type="hidden" name="start" value="yes" />
       <button class="button_try_again button1">Try again</button>
     </form>
