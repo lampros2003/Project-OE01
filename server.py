@@ -96,12 +96,12 @@ def loggedstart():
     try2=history[3]
     try3=history[4]
     try4=history[5]
+    questions = Quiz.draw_questions()
+    new_question = questions.pop()
+    session["questions"] = questions
+    session["score"] = 0
+    session["count"] = 0
     if request.query_string:
-        questions = Quiz.draw_questions()
-        new_question = questions.pop()
-        session["questions"] = questions
-        session["score"] = 0
-        session["count"] = 0
         return redirect(url_for("question", id = new_question))
     else:
         return render_template("start.html",name=name,try1=try1,try2=try2,try3=try3,try4=try4)
@@ -151,7 +151,7 @@ def question(id):
         ## να δώσουμε ανάδραση για την απάντηση και σκορ
         print(q["answer"])
         return render_template('main_page.html', question = q["question"], \
-            id = id, user_name=name, replies = q["answer"],
+            id = id, user_name=name, replies = q["answer"],len=len(q["answer"]),
             feedback = feedback, next_question = next_question, button="Επόμενη",
             disabled = "disabled") ####### ( 4 ) ########
 
@@ -162,7 +162,7 @@ def question(id):
         session["count"] = count + 1
         print(q["answer"])
         return render_template('main_page.html', question = q["question"], \
-            id = id, user_name=name, replies = q["answer"], button="Υποβολή")
+            id = id, user_name=name, replies = q["answer"],len=len(q["answer"]), button="Υποβολή")
     return loginwrap(loggedquestion(id))
     
 
