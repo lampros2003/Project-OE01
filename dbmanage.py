@@ -129,5 +129,5 @@ def addqtodbfromtxt(conn):
 if __name__ == "__main__":
 
    
-   q = takequestion(conn,1)
+   q = takequestion(conn,12)
    print(q)

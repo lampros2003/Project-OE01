@@ -175,9 +175,6 @@ if authorizedentry:
     testplay.update_player_stats()
 
 print(dbmanage.fetchplayer(conn,testplay.values))  """
-q = Quiz.draw_questions()
-print(q)
-print(dbmanage.fetchplayer(conn,["potato"]))
 
 
 

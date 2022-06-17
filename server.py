@@ -160,7 +160,7 @@ def question(id):
         ## να δώσουμε ανάδραση για την απάντηση και σκορ
         return render_template('main_page.html', question = q["question"], \
             id = id, user_name=name, replies = q["answer"],
-            feedback = feedback, next_question = next_question, button=str(questions),
+            feedback = feedback, next_question = next_question, button="Επόμενη",
             disabled = "disabled") ####### ( 4 ) ########
 
     else: # πρέπει να στείλουμε στον χρήστη την ερώτηση
