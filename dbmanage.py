@@ -128,7 +128,13 @@ def addqtodbfromtxt(conn):
 
 def addrule(conn):
     cursor = conn.cursor()
-    rules =""""""
+    rules ="""Before you start the quiz:
+    1)You will have to select one of the possible answers.
+    2)There is always a correct answer.
+    3)There is no penalty if your answer is wrong.
+    4)You can see how you did in the end screen.
+    5)Begin the test whenever you feel ready.
+    """
     sql = """INSERT INTO questions (question_id,question_content,question_answers,answer) 
                     VALUES({},'{}','{}',{}) ;""".format(440,rules,"ok",1)
    
