@@ -7,7 +7,7 @@
     <title>Python Quiz Start</title>
     <style>
       body {
-        background-color: #919191;
+        background-color: #bbbbbb;
       }
       h1 {
         color: #ffde57;
@@ -28,9 +28,10 @@
         width: 350px;
         position: absolute;
         top: 30%;
-        left: 38%;
-        font-size: 20px;
-        background-color: #ffffff;
+        left: 40%;
+        font-size: 24px;
+        color: #ffde57;
+        background-color: #4584b6;
       }
       .image1 {
         position: absolute;
@@ -65,10 +66,10 @@
     <h1>Welcome {{name}}</h1>
     <h2>In previous games...</h2>
     <div class="history">
-      most recent try{{try1}} <br>
-      2nd most recent try{{try2}} <br>
-      3rd most recent try{{try3}} <br>
-      4th most recent try{{try4}} 
+      most recent try{{try1}}/5 <br /><br /><br /><br />
+      2nd most recent try{{try2}}/5 <br /><br /><br /><br />
+      3rd most recent try{{try3}}/5 <br /><br /><br /><br />
+      4th most recent try{{try4}}/5
     </div>
     <a href="https://www.python.org/" target="_blank">
       <img
@@ -84,7 +85,8 @@
     </button>
     <script type="text/javascript">
       const audio = new Audio();
-      audio.src = "https://github.com/lampros2003/Project-OE01/blob/238dbc3af45f426ae81ac4f1444c8a5ae7f9a20c/templates/sounds/14759_1460060033.mp3";
+      audio.src =
+        "https://github.com/lampros2003/Project-OE01/blob/238dbc3af45f426ae81ac4f1444c8a5ae7f9a20c/templates/sounds/14759_1460060033.mp3";
       function functionwait() {
         setTimeout(function () {
           window.location.href = "./q/1";
