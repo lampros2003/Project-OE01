@@ -84,7 +84,7 @@ def numqs(conn):
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(question_id) from questions;")
     numofquestions = cursor.fetchone()[0]
-    return numofquestions
+    return numofquestions-2
 def takequestion(conn,id):#:psycopg2.connection):
     cursor = conn.cursor()
     

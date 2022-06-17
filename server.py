@@ -129,25 +129,30 @@ def question(id):
     count = session.get("tries",0)
     questions = session.get("questions", [])
     print(":::::::::::::::::questions",questions)
-    Player.update_player_stats(name,score+1)
-    print(dbmanage.fetchplayer(conn,[name])[0])
+    
 
     if id == "end":
         session["username"] = name
-        Player.update_player_stats(name, score)
-        return redirect(url_for("end")) ##### ( 5 ) #####
+        score = session.get("score", 0)
+        print(Player.update_player_stats(name, score))
+        
+        return redirect(url_for("start")) ##### ( 5 ) #####
 
     
     
     q = Quiz.show_question(id)
     if request.query_string: # ο χρήστης απάντησε
-        reply = request.args.get("answer")
-        new_score = Quiz.calculate_score(id,reply)
-        score += new_score
         name = session.get("username", None)
         score = session.get("score", 0)
         count = session.get("tries",0)
         questions = session.get("questions", [])
+        reply = request.query_string.decode().split("=")[1]
+        new_score = Quiz.calculate_score(id,int(reply)+1)
+        print(id)
+        print("sss",int(reply)+1)
+        print(new_score)
+        score += new_score
+        session["score"] = score
         if new_score == 1: feedback = "Σωστή απάντηση"
         else: feedback = "Προσοχή! Η σωστή απάντηση είναι η {}".format(q["correct"])
         
