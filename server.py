@@ -115,8 +115,14 @@ def start():
 
 @app.route("/end")
 def end():
-
-    pass
+    name = session["username"]
+    history=dbmanage.fetchplayer(conn,[name])[0]
+    try1=history[2]
+    try2=history[3]
+    try3=history[4]
+    try4=history[5]
+    score=3 #εδω πρεπει να μπει η συναρτηση που θα υπολογιζει και θα επιστρεφει το σκορ
+    return render_template("end.html",score=score, name=name,try1=try1,try2=try2,try3=try3,try4=try4)
 
 def loggedquestion(*args, **kwargs):
     return render_template("question.html",id=args[0])
