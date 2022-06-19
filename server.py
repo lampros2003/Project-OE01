@@ -151,9 +151,7 @@ def loggedquestion(id):
         questions = session.get("questions", [])
         reply = request.query_string.decode().split("=")[1]
         new_score = Quiz.calculate_score(id,int(reply)+1)
-        print(id)
-        print("sss",int(reply)+1)
-        print(new_score)
+        
         score += new_score
         session["score"] = score
         if new_score == 1: feedback = "Correct!"
