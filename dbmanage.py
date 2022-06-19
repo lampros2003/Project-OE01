@@ -1,13 +1,5 @@
-
-from multiprocessing.dummy import current_process
-from click import command
 import psycopg2
-import sys, os
-import numpy as np
-import pandas as pd
 import dbcreds as creds
-import pandas.io.sql as psql
-import random
 def connecttodb():
     conn_string = "host="+ creds.PGHOST +" port="+ "5432" +" dbname="+ creds.PGDATABASE +" user=" + creds.PGUSER \
     +" password="+ creds.PGPASSWORD

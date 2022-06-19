@@ -1,13 +1,6 @@
-from cgi import test
-from enum import Flag
-import re
-import os
 import random
-import datetime
 import dbmanage
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager
 total_questions = 5
 conn = dbmanage.connecttodb()
 #always to remain false unless user logged in or first time signed in 
