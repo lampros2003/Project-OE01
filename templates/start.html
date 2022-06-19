@@ -8,6 +8,17 @@
     <style>
       body {
         background-color: #bbbbbb;
+        animation: fading ease 4s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+      }
+      @keyframes fading {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
       h1 {
         color: #ffde57;
