@@ -114,7 +114,6 @@ def start():
    
 
 @app.route("/end")
-@loginwrap
 def end():
     name = session["username"]
     history=dbmanage.fetchplayer(conn,[name])[0]
@@ -180,6 +179,8 @@ def loggedquestion(id):
             id = id, user_name=name, replies = q["answer"],len=len(q["answer"]), button="Submit")
 @app.route('/q/<id>')
 def question(id):
+    
+     
     return loginwrap(loggedquestion)(id)
     
 
