@@ -23,10 +23,10 @@ def loginwrap(func):
     
     def wrapper(*args, **kwargs):
         if "logged_in" not in session or not session["logged_in"]:
-            return  func(*args, **kwargs)
+            return redirect(url_for("login"))
         return func(*args, **kwargs)
     #return wrapper as function not as a value / object
-    return wrapper 
+    return wrapper
 app = Flask(__name__)
 #use secret key
 app.config['SECRET_KEY'] = secret
